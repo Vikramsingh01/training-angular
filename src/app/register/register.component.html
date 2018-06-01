@@ -1,0 +1,19 @@
+<div class="row">
+  <h1>Welcome to Registration Page</h1>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <a [routerLink]="['sign-up']">Sign Up</a>
+  </div>
+  <div class="col-md-3">
+      <a [routerLink]="['reactive-sign-up']">Reactive Sign Up</a>
+    </div>
+  <div class="col-md-2">
+    <a [routerLink]="['/register/sign-in']">Sign In</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <router-outlet></router-outlet>
+  </div>
+</div>

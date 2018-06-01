@@ -1,0 +1,76 @@
+<form #signUpForm = "ngForm" (ngSubmit)="signUp(signUpForm)" autocomplete="off">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h3>Sign Up</h3>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-3">
+      <label>Username: </label>
+    </div>
+    <div class="col-md-5">
+      <input type="text" class="form-control" required [ngModel]="user.username" name="username" placeholder="Username" />
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-3">
+      <label>Email: </label>
+    </div>
+    <div class="col-md-5">
+      <input type="text" class="form-control" #email="ngModel" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [ngModel]="user.email" name="email" placeholder="Email" />
+      <div class="alert alert-danger" *ngIf="(email.dirty || email.touched) && email.invalid">
+        <div *ngIf="email.errors?.required">Email is mandatory</div>
+        <div *ngIf="email.errors?.pattern">Email is not valid</div>
+      </div>
+    </div>
+  </div>
+  <div ngModelGroup="password" #userPassword="ngModelGroup">
+    <div class="row form-group">
+      <div class="col-md-3">
+        <label>Password: </label>
+      </div>
+      <div class="col-md-5">
+        <input type="password" class="form-control" required minlength="6" #pwd="ngModel" [ngModel]="user.password.password" name="password" placeholder="Password" />
+        <div class="alert alert-danger" *ngIf="userPassword.invalid && (userPassword.dirty || userPassword.touched)">
+            <div *ngIf="pwd.errors?.required">Password is required</div>
+            <div *ngIf="pwd.errors?.minlength">Password should at least 6 character</div>
+          </div>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-3">
+        <label>Confirm Password: </label>
+      </div>
+      <div class="col-md-5">
+        <input type="password" class="form-control" [ngModel]="user.password.confirmPassword" name="confirmPassword" placeholder="Confirm Password" />
+        <div class="alert alert-danger" *ngIf="userPassword.value?.password != userPassword.value?.confirmPassword">
+            <div>Confirm password should be same as password</div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-3">
+      <label>Gender: </label>
+    </div>
+    <div class="col-md-5">
+      <select class="form-control" required [ngModel]="user.gender" name="gender">
+        <option value="">- Select -</option>
+        <option *ngFor="let gender of genderList" [value]="gender">{{gender}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <input type="checkbox" class="" [ngModel]="user.agree" name="agree"/>I agree to terms & conditions:
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <button type="submit" class="button btn btn-primary" [disabled]="!signUpForm.valid">Sign Up</button>
+      <button type="reset" class="button btn">Reset</button>
+    </div>
+  </div>
+</form>
+<pre>{{signUpForm.value | json}}</pre>
+<pre>{{user | json}}</pre>

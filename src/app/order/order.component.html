@@ -1,0 +1,50 @@
+<div [ngStyle]="{'background': backgroundColor}"><h1>Place your order here</h1>
+<br/>
+<div class="row form-group">
+  <div class="col-md-2">
+    <label>Table No: </label>
+  </div>
+  <div class="col-md-4">
+    <input type="number" [(ngModel)]="tableNo" class="form-control" />
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+      <input type="radio" [(ngModel)]="menuType" value="breakfast" />Breakfast
+    <input type="radio" [(ngModel)]="menuType" value="lunch" />Lunch
+  </div>
+</div>
+
+<div class="col-md-4 list-group" *ngIf="menuType == 'breakfast'">
+  <div *ngFor="let dish of breakfastDishList; let i = index" class="list-group-item" (click)="selectDish(dish)" appAppBold [bgColor]="'green'">
+    {{i+1}}. {{dish}}
+  </div>
+</div>
+<!-- <div class="col-md-4 list-group" *ngIf="menuType == 'lunch'">
+    <div *ngFor="let dish of lunchDishList; let i = index" class="list-group-item" appAppBold>
+      {{i+1}}. {{dish}}
+    </div>
+  </div> -->
+  <div class="row">
+    <button class="button btn" (click)="stopStart()">{{timerFlag?'Start':'Stop'}}</button>
+  </div>
+<!-- <div class="row">
+  <div class="col-md-2">
+    <label>Dish: </label>
+  </div>
+  <div class="col-md-4">
+    <input type="text" [(ngModel)]="dish" class="form-control" />
+  </div>
+</div> -->
+<div [ngSwitch]="dishSelected" [ngStyle]="myStyle" [ngClass]="{'red': backgroundFlag, 'blue': !backgroundFlag}">
+  <div *ngSwitchCase="'Idli'">Price: {{priceList[0]}}</div>
+  <div *ngSwitchCase="'Poha'">Price: {{priceList[1]}}</div>
+  <div *ngSwitchCase="'Upma'">Price: {{priceList[2]}}</div>
+  <div *ngSwitchDefault>No Item selected</div>
+</div>
+<button class="btn button" (click)="setStyle()">Change style</button>
+<button class="btn button" (click)="backgroundFlag = !backgroundFlag">Change background</button>
+You have received a order on table number: {{tableNo}}<br/>
+Dish to be served: {{dish}}
+
+</div>

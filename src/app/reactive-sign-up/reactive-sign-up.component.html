@@ -1,0 +1,87 @@
+<form autocomplete="off" [formGroup]="signUpForm" (ngSubmit)="signUp()">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h3>Sign Up</h3>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-3">
+        <label>Username: </label>
+      </div>
+      <div class="col-md-5">
+        <input type="text" class="form-control" formControlName="username" placeholder="Username" />
+        <div class="alert alert-danger" *ngIf="signUpForm.get('username').invalid && signUpForm.get('username').touched">
+            <div *ngIf="signUpForm.get('username').hasError('forbiddenName')">
+              Username already taken
+            </div>
+            <div *ngIf="signUpForm.get('username').hasError('required')">
+            Username is mandatory
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-3">
+        <label>Email: </label>
+      </div>
+      <div class="col-md-5">
+        <input type="text" class="form-control" formControlName="email" placeholder="Email" />
+          <div class="alert alert-danger" *ngIf="signUpForm.get('email').invalid && signUpForm.get('email').touched">
+          <div *ngIf="signUpForm.get('email').hasError('required')">Email is mandatory</div>
+          <div *ngIf="signUpForm.get('email').hasError('email')">Email is not valid</div>
+        </div>
+      </div>
+    </div>
+    <div >
+      <div class="row form-group">
+        <div class="col-md-3">
+          <label>Password: </label>
+        </div>
+        <div class="col-md-5">
+          <input type="password" class="form-control" formControlName="password" placeholder="Password" />
+          <div class="alert alert-danger" *ngIf="signUpForm.get('password').invalid && signUpForm.get('password').touched">
+            <div *ngIf="signUpForm.get('password').hasError('required')">Password is required</div>
+            <div *ngIf="signUpForm.get('password').hasError('minlength')">Password should at least 6 character</div>
+            <div *ngIf="signUpForm.get('password').hasError('pattern')">Password should contain only caps and number</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-3">
+          <label>Confirm Password: </label>
+        </div>
+        <div class="col-md-5">
+          <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password" />
+          <div class="alert alert-danger" *ngIf="signUpForm.get('password').value != signUpForm.get('confirmPassword').value">
+            <div>Confirm password should be same as password</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-3">
+        <label>Gender: </label>
+      </div>
+      <div class="col-md-5">
+        <select class="form-control" formControlName="gender" >
+          <option value="">- Select -</option>
+          <option *ngFor="let gender of genderList" [value]="gender">{{gender}}</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="signUpForm.get('gender').hasError('required') && signUpForm.get('gender').touched">
+          <div>Gender is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-12">
+        <input type="checkbox" formControlName="agree" class=""/>I agree to terms & conditions:
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-12">
+        <button type="submit" class="button btn btn-primary" [disabled]='signUpForm.invalid'>Sign Up</button>
+        <button type="reset" class="button btn">Reset</button>
+      </div>
+    </div>
+  </form>
+  <pre>{{signUpForm.value | json}}</pre>

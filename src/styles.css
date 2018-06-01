@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+.container{
+    min-height: 34em;
+}
+.sidebar{
+    padding: 5px;
+    background: #f8f9fa;
+}
+.sidebar li{
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+.fa-edit:before {
+    content: "\f044";
+}
